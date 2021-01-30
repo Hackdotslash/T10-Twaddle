@@ -14,12 +14,26 @@ class UserModel(db.Model):
     username = db.Column(db.String(80))
     password = db.Column(db.String(80))
 
-    def __init__(self, username, password):
+    def __init__(self, username,mail, car_model, age, year,fuel_type, name):
+        """
+        username : The uuid of the gmail login
+        mail     : mail id of the user
+        car_model: The model of the car to be selected from the database of our cars
+        age      : age of the user.
+        year     : year of the car.
+        fuel_type: The fuel type of car : diesel/petrol/CNG
+        name     : The name  of the user.  
+        """
         self.username = username
-        self.password = password
+        self.mail     = mail
+        self.car_model = car_model
+        self.age = age
+        self.year = year
+        self.fuel_type = fuel_type
+        self.name = name
 
     @classmethod
-    def find_by_username(cls, username):
+    def find_by_username(cls, mail):
         """
         Selects a user from the DB and returns it.
 
@@ -28,10 +42,10 @@ class UserModel(db.Model):
         :return: a user.
         :rtype: UserModel.
         """
-        return cls.query.filter_by(username=username).first()
+        return cls.query.filter_by(mail=mail).first()
 
     @classmethod
-    def find_by_id(cls, _id):
+    def find_by_id(cls, username):
         """
         Selects a user from the DB and returns it.
 
@@ -40,7 +54,7 @@ class UserModel(db.Model):
         :return: a user.
         :rtype: UserModel.
         """
-        return cls.query.filter_by(id=_id).first()
+        return cls.query.filter_by(username=username).first()
 
     def save_to_db(self):
         """
@@ -55,3 +69,9 @@ class UserModel(db.Model):
         """
         db.session.delete(self)
         db.session.commit()
+
+
+ 
+    
+    # create a module for adding the userData model where the details of the user is stored mothefucker!!!
+    

@@ -4,4 +4,5 @@
     <string name="title_home">Home</string>
     <string name="title_buy">Buy</string>
     <string name="title_social">Social</string>
+    <string name="server_client_id_for_firebase_auth">60900845011-c0nkgjbg0akql4sbi50pfih1hnhu88tj.apps.googleusercontent.com</string>
 </resources>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Driving (Friends)"
+        android:textSize="23sp"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/friends_drive"
+        android:background="@android:color/white"
+        android:layout_margin="16sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Going With Pranoppal"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:layout_margin="12dp"
+        android:layout_gravity="center"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_trip_latitude"
+        android:text="Start Trip Latitude: 12321312"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_trip_longitude"
+        android:text="Start Trip:- Longitude: 2321312"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/end_trip_latitude"
+        android:text="End Trip:- Latitude: 12321312"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/end_trip_longitutde"
+        android:text=" End Trip:- Longitude: 12321312"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alert!  Please turn on bluetooth"
+        android:id="@+id/system_msg"
+        android:visibility="gone"
+        android:layout_margin="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:id="@+id/loading_bluetooth"
+        android:visibility="invisible"
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_start_trip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:layout_gravity="center"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
+        app:elevation="8dp"
+        android:gravity="center"
+        app:backgroundTint="#ffe135"
+        app:strokeColor="#a8a8a8"
+        app:strokeWidth="1dp"
+        app:rippleColor="#ffff00"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</LinearLayout>
