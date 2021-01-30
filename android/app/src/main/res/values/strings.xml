@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Ecofriendly</string>
+    <string name="title_activity_bottom_navigation">BottomNavigation</string>
+    <string name="title_home">Home</string>
+    <string name="title_buy">Buy</string>
+    <string name="title_social">Social</string>
+</resources>
