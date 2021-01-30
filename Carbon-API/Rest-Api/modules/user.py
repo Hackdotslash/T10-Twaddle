@@ -33,7 +33,7 @@ class UserModel(db.Model):
         self.name = name
 
     @classmethod
-    def find_by_username(cls, mail):
+    def find_by_username(cls, username):
         """
         Selects a user from the DB and returns it.
 
@@ -42,10 +42,10 @@ class UserModel(db.Model):
         :return: a user.
         :rtype: UserModel.
         """
-        return cls.query.filter_by(mail=mail).first()
+        return cls.query.filter_by(username=username).first()
 
     @classmethod
-    def find_by_id(cls, username):
+    def find_by_id(cls, _id):
         """
         Selects a user from the DB and returns it.
 
@@ -54,7 +54,7 @@ class UserModel(db.Model):
         :return: a user.
         :rtype: UserModel.
         """
-        return cls.query.filter_by(username=username).first()
+        return cls.query.filter_by(id=_id).first()
 
     def save_to_db(self):
         """
@@ -71,7 +71,9 @@ class UserModel(db.Model):
         db.session.commit()
 
 
- 
+    @classmethod
+    def add_user(cls, username):
+        
     
     # create a module for adding the userData model where the details of the user is stored mothefucker!!!
     

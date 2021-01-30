@@ -13,6 +13,4 @@ public final class Constants implements BaseColumns{
     public final static String COLUMN_NAME = "name";
     public final static String COLUMN_PHONE = "phone";
     public final static String COLUMN_MAIL = "mail";
-    public final static String PREF_NAME = "basic_user_shared_pref";
-    public final static String mBaseUrl = "https://reqres.in/api/";
 }

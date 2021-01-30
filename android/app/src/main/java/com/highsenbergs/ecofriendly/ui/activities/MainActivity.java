@@ -1,8 +1,19 @@
 package com.highsenbergs.ecofriendly.ui.activities;
 
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,34 +27,21 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.highsenbergs.ecofriendly.R;
-import com.highsenbergs.ecofriendly.model.Contacts;
-import com.highsenbergs.ecofriendly.network.FollowerApiInterface;
-import com.highsenbergs.ecofriendly.receivers.BluetoothReceiver;
-import com.highsenbergs.ecofriendly.ui.App;
+import com.highsenbergs.ecofriendly.db.ContactsDBHelper;
 import com.highsenbergs.ecofriendly.ui.fragments.CouponsFragment;
 import com.highsenbergs.ecofriendly.ui.fragments.HomeFragment.HomeFragment;
 import com.highsenbergs.ecofriendly.ui.fragments.SocialFragment.SocialFragment;
 
-import java.util.ArrayList;
-
-import javax.inject.Inject;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.READ_CONTACTS;
+import static com.highsenbergs.ecofriendly.utils.Constants.TABLE_NAME;
 
-public class MainActivity extends AppCompatActivity implements BluetoothReceiver.BluetoothReceiverListener {
+public class MainActivity extends AppCompatActivity {
 
-    @Inject
-    Retrofit retrofit;
-
-    private static final String TAG = "MainActivity";
+    BluetoothReceiver bluetoothReceiver;
     private static final int PERMISSION_REQUEST_CODE = 200;
-    private ArrayList<BluetoothDevice> bluetoothDeviceArrayList = new ArrayList<>(  );
+    private ContactsDBHelper dbHelper;
+    private SQLiteDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,38 +52,63 @@ public class MainActivity extends AppCompatActivity implements BluetoothReceiver
             requestPermission();
         }
 
-        App.getApp().getDataComponent().inject( this );
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener( navigationItemSelectedListener );
         openFragment( new HomeFragment() );
 
-//        BluetoothReceiver bluetoothReceiver = new BluetoothReceiver();
-//        BluetoothReceiver.BluetoothReceiverListener bluetoothReceiverListener = this;
-//        bluetoothReceiver.InitialiseBluetoothListener( bluetoothReceiverListener );
+        bluetoothReceiver = new BluetoothReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction( BluetoothDevice.ACTION_ACL_CONNECTED);
+        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
+        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+        filter.addAction( BluetoothDevice.ACTION_FOUND );
+        this.registerReceiver(bluetoothReceiver, filter);
 
-        getFollowers();
+        //search for available devices
+        final Handler handler = new Handler();
+        final Runnable r = new Runnable() {
+            public void run() {
+                BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                bluetoothAdapter.startDiscovery();
+                handler.postDelayed( this, 100000 );
+            }
+        };
+        handler.postDelayed( r, 100000 );
+
+        dbHelper = new ContactsDBHelper( this );
+        database = dbHelper.getWritableDatabase();
+
+        getAllContacts();
+
     }
 
-    //TODO: configure
-    private void getFollowers(){
-        Log.i( this.getClass().getSimpleName(), "getFollowers: " );
-        FollowerApiInterface apiInterface = retrofit.create(FollowerApiInterface.class);
-        Call<Contacts> call = apiInterface.getHeadlines();
-        call.enqueue( new Callback<Contacts>() {
-            @Override
-            public void onResponse(Call<Contacts> call, Response<Contacts> response) {
-                Log.i( this.getClass().getSimpleName() , "onResponse: " + response );
-            }
+    private void getAllContacts(){
 
-            @Override
-            public void onFailure(Call<Contacts> call, Throwable t) {
-                Log.i( TAG, "onFailure: " + t );
-            }
-        } );
+        ContentResolver resolver = getContentResolver();
+        Cursor c = resolver.query(
+                ContactsContract.Data.CONTENT_URI,
+                null,
+                ContactsContract.Data.HAS_PHONE_NUMBER + "!=0 AND (" + ContactsContract.Contacts.Data.MIMETYPE + "=? OR " + ContactsContract.Contacts.Data.MIMETYPE + "=?)",
+                new String[]{ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE},
+                ContactsContract.Data.CONTACT_ID );
+        c.moveToFirst();
+
+        while (c.moveToNext()) {
+            int id = c.getInt( c.getColumnIndex( ContactsContract.Data.CONTACT_ID ) );
+            String name = c.getString( c.getColumnIndex( ContactsContract.Data.DISPLAY_NAME ) );
+            String data1 = c.getString( c.getColumnIndex( ContactsContract.Data.DATA1 ) );
+            String mail = c.getString( c.getColumnIndexOrThrow( ContactsContract.CommonDataKinds.Email.ADDRESS ) );
+            ContentValues contentValues = new ContentValues();
+            contentValues.put( "ID", id );
+            contentValues.put( "name", name );
+            contentValues.put( "phone", data1 );
+            contentValues.put( "mail", mail );
+            database.insert( TABLE_NAME, null, contentValues );
+        }
+        c.close();
+
     }
-
-    
     private void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
@@ -134,10 +157,42 @@ public class MainActivity extends AppCompatActivity implements BluetoothReceiver
     }
 
 
-
     @Override
-    public void getAvailableDevices(BluetoothDevice bluetoothDevice) {
-        bluetoothDeviceArrayList.add(bluetoothDevice);
-        Log.i( this.getClass().getSimpleName(), "getAvailableDevices: arraylist=" + bluetoothDeviceArrayList );
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver( bluetoothReceiver );
+//        locationTrack.stopListener();
+    }
+
+    class BluetoothReceiver extends BroadcastReceiver{
+        public BluetoothReceiver() {
+            super();
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String TAG = this.getClass().getSimpleName();
+            String action = intent.getAction();
+            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            Log.i( TAG, "onReceive: device=" + device);
+            //TODO: location must be turned on ask for permission
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice availableDevices = intent.getParcelableExtra( BluetoothDevice.EXTRA_DEVICE );
+                Log.i( TAG, "onReceive: Device found, name=" + availableDevices.getName() + " address=" + availableDevices.getAddress());
+            }
+            else if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
+                Log.i( TAG, "onReceive: Device is now connected" );
+            }
+            else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                Log.i( TAG, "onReceive: Done Searching" );
+            }
+            else if (BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED.equals(action)) {
+                Log.i( TAG, "onReceive: Device is about to disconnect" );
+            }
+            else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
+                Log.i( TAG, "onReceive: Device has disconnected" );
+            }
+
+        }
     }
 }
