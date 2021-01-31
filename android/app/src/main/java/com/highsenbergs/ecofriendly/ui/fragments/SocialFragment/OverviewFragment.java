@@ -1,5 +1,6 @@
 package com.highsenbergs.ecofriendly.ui.fragments.SocialFragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,40 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.highsenbergs.ecofriendly.R;
+import com.highsenbergs.ecofriendly.db.ContactsDBHelper;
+import com.highsenbergs.ecofriendly.model.Contacts;
+import com.highsenbergs.ecofriendly.ui.App;
+import com.highsenbergs.ecofriendly.ui.viewmodel.ContactsViewModel;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
+import retrofit2.Retrofit;
 
 public class OverviewFragment extends Fragment {
 
+//    @Inject
+//    Retrofit retrofit;
+
     private View view;
+    private ContactsDBHelper dbHelper;
+    private ContactsViewModel viewModel;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ArrayList<Contacts> contactsArrayList;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate( savedInstanceState );
+//        App.getApp().getDataComponent().inject( this );
+        viewModel = new ViewModelProvider( this ).get( ContactsViewModel.class );
+        dbHelper = new ContactsDBHelper( getActivity() );
+    }
 
     @Nullable
     @Override
@@ -27,34 +56,24 @@ public class OverviewFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated( savedInstanceState );
-        LinearLayout dynamicContacts = view.findViewById( R.id.ll_invite_contacts );
-        View friend1 = getLayoutInflater().inflate( R.layout.card_contact_invite , dynamicContacts, false );
-        TextView tv_name = friend1.findViewById( R.id.contact_name);
-        tv_name.setText( "Pranoppal" );
-        TextView tv_username = friend1.findViewById( R.id.contact_username);
-        tv_username.setText( "@pranoppal" );
-        dynamicContacts.addView(friend1);
 
-        View friend2 = getLayoutInflater().inflate( R.layout.card_contact_invite , dynamicContacts, false );
-        TextView tv_name2 = friend2.findViewById( R.id.contact_name);
-        tv_name2.setText( "Bala" );
-        TextView tv_username2 = friend2.findViewById( R.id.contact_username);
-        tv_username2.setText( "@pranoppal" );
-        dynamicContacts.addView(friend2);
 
-        View friend3 = getLayoutInflater().inflate( R.layout.card_contact_invite , dynamicContacts, false );
-        TextView tv_name3 = friend3.findViewById( R.id.contact_name);
-        tv_name3.setText( "Sid" );
-        TextView tv_username3 = friend3.findViewById( R.id.contact_username);
-        tv_username3.setText( "@pranoppal" );
-        dynamicContacts.addView(friend3);
 
-        View friend4 = getLayoutInflater().inflate( R.layout.card_contact_invite , dynamicContacts, false );
-        TextView tv_name4 = friend4.findViewById( R.id.contact_name);
-        tv_name4.setText( "nambiar" );
-        TextView tv_username4= friend4.findViewById( R.id.contact_username);
-        tv_username4.setText( "@pranoppal" );
-        dynamicContacts.addView(friend4);
+        swipeRefreshLayout = view.findViewById( R.id.swipeContainer );
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        swipeRefreshLayout.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                GetContactsAsyncTask asyncTask = new GetContactsAsyncTask();
+                asyncTask.execute();
+            }
+        } );
+
+        GetContactsAsyncTask asyncTask = new GetContactsAsyncTask();
+        asyncTask.execute();
 
         LinearLayout followingLayout = view.findViewById( R.id.ll_dynamic_following );
         View following1 = getLayoutInflater().inflate( R.layout.card_friends_following , followingLayout , false );
@@ -64,18 +83,41 @@ public class OverviewFragment extends Fragment {
         tv_following_username1.setText( "@pranoppal" );
         followingLayout.addView(following1);
 
-//        View following2 = getLayoutInflater().inflate( R.layout.card_friends_following , followingLayout , false );
-//        TextView tv_following_name2 = following2.findViewById( R.id.following_name);
-//        tv_following_name2.setText( "Fahad" );
-//        TextView tv_following_username2= following2.findViewById( R.id.following_username);
-//        tv_following_username2.setText( "@pranoppal" );
-//        followingLayout.addView(following2);
-//
-//        View following3 = getLayoutInflater().inflate( R.layout.card_friends_following , followingLayout , false );
-//        TextView tv_following_name3 = following3.findViewById( R.id.following_name);
-//        tv_following_name3.setText( "Jotwani" );
-//        TextView tv_following_username3= following3.findViewById( R.id.following_username);
-//        tv_following_username3.setText( "@pranoppal" );
-//        followingLayout.addView(following3);
+
     }
+
+
+    private class GetContactsAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        public GetContactsAsyncTask() {
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            swipeRefreshLayout.setRefreshing( true );
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute( aVoid );
+            LinearLayout dynamicContacts = view.findViewById( R.id.ll_invite_contacts );
+            for (Contacts contact : contactsArrayList) {
+                View friend1 = getLayoutInflater().inflate( R.layout.card_contact_invite, dynamicContacts, false );
+                TextView tv_name = friend1.findViewById( R.id.contact_name );
+                tv_name.setText( contact.getName() );
+                TextView tv_username = friend1.findViewById( R.id.contact_username );
+                tv_username.setText( String.valueOf( contact.getMobile() ) );
+                dynamicContacts.addView( friend1 );
+            }
+            swipeRefreshLayout.setRefreshing( false );
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            contactsArrayList = viewModel.getContactsArrayList();
+            return null;
+        }
+    }
+
 }

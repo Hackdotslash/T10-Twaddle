@@ -6,6 +6,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+
     <FrameLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_container"
@@ -18,13 +19,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
+        android:background="@color/colorTitle"
         app:elevation="10dp"
         app:itemIconSize="24dp"
-        app:itemIconTint="@android:color/darker_gray"
+        app:itemIconTint="@color/color_selector"
         app:itemTextAppearanceActive="@style/BottomNavigationViewSelected"
         app:itemTextAppearanceInactive="@style/BottomNavigationViewNotSelected"
-        app:itemTextColor="@android:color/black"
+        app:itemTextColor="@android:color/white"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu"/>
 

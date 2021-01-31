@@ -1,7 +1,13 @@
 <resources>
-    <string name="app_name">Ecofriendly</string>
+    <string name="app_name">ECO2Drive</string>
     <string name="title_activity_bottom_navigation">BottomNavigation</string>
     <string name="title_home">Home</string>
     <string name="title_buy">Buy</string>
     <string name="title_social">Social</string>
+    <string name="server_client_id_for_firebase_auth">60900845011-c0nkgjbg0akql4sbi50pfih1hnhu88tj.apps.googleusercontent.com</string>
+    <string-array name="array_fuel">
+        <item>Petrol</item>
+        <item>Diesel</item>
+        <item>CNG/LPG</item>
+    </string-array>
 </resources>

@@ -41,8 +41,8 @@ public class HomeFragment extends Fragment {
 
     private void setupViewPagerAdapter(ViewPager viewPager){
         SectionViewPagerAdapter sectionViewPagerAdapter = new SectionViewPagerAdapter( getChildFragmentManager() );
-        sectionViewPagerAdapter.addfragment( new SoloDrive() , "Solo Drive" );
-        sectionViewPagerAdapter.addfragment( new FriendsDrive() , "Drive With Friends" );
+        sectionViewPagerAdapter.addfragment( new SoloDrive() , "Drive" );
+        sectionViewPagerAdapter.addfragment( new FriendsDrive() , "Car Pool" );
         viewPager.setAdapter( sectionViewPagerAdapter );
     }
 }

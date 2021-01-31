@@ -1,16 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp">
 
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Start Driving (Solo)"-->
+    <!--        android:textSize="23sp"-->
+    <!--        />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/famous"
+            android:background="@android:color/white"
+            android:layout_margin="16sp"
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="60sp"
-        android:text="Location"
-        android:textColor="@android:color/white"
-        android:id="@+id/btn_location"
-        android:background="@android:color/black"
-        />
+            />
+
+    </LinearLayout>
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/start_trip_latitude"-->
+    <!--        android:text="Start Trip Latitude: 12321312"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        />-->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/start_trip_longitude"-->
+    <!--        android:text="Start Trip:- Longitude: 2321312"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        />-->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/end_trip_latitude"-->
+    <!--        android:text="End Trip:- Latitude: 12321312"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        />-->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/end_trip_longitutde"-->
+    <!--        android:text=" End Trip:- Longitude: 12321312"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_start_trip"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="120dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
+            android:text="Pool"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textFontWeight="600"
+            android:textSize="23sp"
+            android:textStyle="normal"
+            app:backgroundTint="@color/colorAccent"
+            app:cornerRadius="60dp"
+            app:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rippleColor="#13ad2a" />
+    </LinearLayout>
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:text="Alert!  Please turn on bluetooth"-->
+    <!--        android:id="@+id/system_msg"-->
+    <!--        android:visibility="invisible"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textSize="18sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:layout_weight="0.5"-->
+    <!--        />-->
 
 </LinearLayout>

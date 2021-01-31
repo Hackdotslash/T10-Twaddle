@@ -1,11 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp">
 
-    <TextView
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Start Driving (Solo)"-->
+    <!--        android:textSize="23sp"-->
+    <!--        />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:gravity="center"
+        android:orientation="vertical">
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hiii drive kar beta"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/car"
+        android:background="@android:color/white"
+        android:layout_margin="16sp"
+
         />
+
+    </LinearLayout>
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/start_trip_latitude"-->
+    <!--        android:text="Start Trip Latitude: 12321312"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        />-->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/start_trip_longitude"-->
+    <!--        android:text="Start Trip:- Longitude: 2321312"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        />-->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/end_trip_latitude"-->
+    <!--        android:text="End Trip:- Latitude: 12321312"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        />-->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/end_trip_longitutde"-->
+    <!--        android:text=" End Trip:- Longitude: 12321312"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_start_trip"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="120dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
+            android:text="Start"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textFontWeight="600"
+            android:textSize="23sp"
+            android:textStyle="normal"
+            app:backgroundTint="@color/colorPrimary"
+            app:cornerRadius="60dp"
+            app:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rippleColor="#13ad2a" />
+
+        <TextView
+            android:id="@+id/tv_trip_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:textColor="@color/colorTitle"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/tv_coins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="afsdf"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:layout_margin="2dp"
+                android:textColor="@color/colorTitle"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/dollar"
+                android:id="@+id/icon_coins"
+                android:visibility="invisible"
+                />
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:text="Alert!  Please turn on bluetooth"-->
+    <!--        android:id="@+id/system_msg"-->
+    <!--        android:visibility="invisible"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textSize="18sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:layout_weight="0.5"-->
+    <!--        />-->
+
 </LinearLayout>

@@ -39,7 +39,7 @@ public class SocialFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager){
         SectionViewPagerAdapter adapter = new SectionViewPagerAdapter( getChildFragmentManager() );
         adapter.addfragment( new OverviewFragment() , "Overview" );
-        adapter.addfragment( new FriendsFragment() , "You vs Friends" );
+        adapter.addfragment( new FriendsLeaderboardFragment() , "You vs Friends" );
         viewPager.setAdapter( adapter );
     }
 }

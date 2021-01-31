@@ -11,15 +11,18 @@
     <style name="BottomNavigationViewSelected" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">12sp</item>
         <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="BottomNavigationViewNotSelected" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">10sp</item>
         <item name="android:alpha">0.87</item>
+        <item name="android:textColor">@android:color/white</item>
+
     </style>
 
     <style name="MyTabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
     </style>

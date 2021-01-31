@@ -1,18 +1,26 @@
-"""
-| Created: 2017-08-13
-| Updated: 2017-08-13
-"""
-from db import db
+<<<<<<< HEAD
+from config import Base
+=======
+import sys
+from sqlalchemy import SQLAlchemy
 
+>>>>>>> 76a291baa24344cf1b5bc109ed48ae5941300294
+
+db = SQLAlchemy()
 
 class UserModel(db.Model):
     """User model."""
 
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80))
-    password = db.Column(db.String(80))
+    username = db.Column(db.String(80), primary_key=True)
+    mail = db.Column(db.String(80))
+    name = db.Column(db.String(80))
+    car_model = db.Column(db.String(80)) python models.py
+
+    age = db.Column(db.Integer)
+
+
 
     def __init__(self, username,mail, car_model, age, year,fuel_type, name):
         """
@@ -33,7 +41,7 @@ class UserModel(db.Model):
         self.name = name
 
     @classmethod
-    def find_by_username(cls, username):
+    def find_by_username(cls, mail):
         """
         Selects a user from the DB and returns it.
 
@@ -42,10 +50,10 @@ class UserModel(db.Model):
         :return: a user.
         :rtype: UserModel.
         """
-        return cls.query.filter_by(username=username).first()
+        return cls.query.filter_by(mail=mail).first()
 
     @classmethod
-    def find_by_id(cls, _id):
+    def find_by_id(cls, username):
         """
         Selects a user from the DB and returns it.
 
@@ -54,7 +62,7 @@ class UserModel(db.Model):
         :return: a user.
         :rtype: UserModel.
         """
-        return cls.query.filter_by(id=_id).first()
+        return cls.query.filter_by(username=username).first()
 
     def save_to_db(self):
         """
@@ -71,9 +79,7 @@ class UserModel(db.Model):
         db.session.commit()
 
 
-    @classmethod
-    def add_user(cls, username):
-        
+ 
     
     # create a module for adding the userData model where the details of the user is stored mothefucker!!!
     

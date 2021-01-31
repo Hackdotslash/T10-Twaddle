@@ -4,17 +4,17 @@ import pandas as pd
 
 
 def get_data(data = []):
-    for data_file in ["data1.csv", "data2.csv"]:
+    for data_file in ["data1.csv"]:#["data1.csv", "data2.csv"]:
         with open('../data/obd_datasets/{}'.format(data_file), mode='r') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             line_count = 0
             skipped_rows = 0
             for row in csv_reader:
                 try:
-                    int(row["FUEL_LEVEL"].split(",")[0]), int(row["ENGINE_LOAD"].split(",")[0]), int(row["ENGINE_RPM"].split("R")[0]), int(row["SPEED"].split("k")[0]), datetime.datetime.strptime(row["ENGINE_RUNTIME"], '%H:%M:%S').time()
-                    if row["FUEL_LEVEL"] != "" and row["ENGINE_LOAD"] != "" and row["ENGINE_RPM"] != "" and row["SPEED"] != "" and row["ENGINE_RUNTIME"] != "":
+                    int(row["MAF"].split(",")[1].split("g")[0]), int(row["ENGINE_LOAD"].split(",")[0]), int(row["ENGINE_RPM"].split("R")[0]), int(row["SPEED"].split("k")[0]), datetime.datetime.strptime(row["ENGINE_RUNTIME"], '%H:%M:%S').time()
+                    if row["MAF"] != "" and row["ENGINE_LOAD"] != "" and row["ENGINE_RPM"] != "" and row["SPEED"] != "" and row["ENGINE_RUNTIME"] != "":
                         data.append({
-                            "FUEL_LEVEL" : int(row["FUEL_LEVEL"].split(",")[0]),
+                            "FUEL_LEVEL" : int(row["MAF"].split(",")[1].split("g")[0]),
                             "ENGINE_LOAD" : int(row["ENGINE_LOAD"].split(",")[0]),
                             "ENGINE_RPM" : int(row["ENGINE_RPM"].split("R")[0]),
                             "SPEED" : int(row["SPEED"].split("k")[0]),
@@ -35,6 +35,7 @@ def time_to_hrs(t):
 
 def format_data(data):
     formatted_data = []
+    temp = []
     for i in range(1, len(data)):
         prev_row = data[i- 1]
         row = data[i]
@@ -43,7 +44,7 @@ def format_data(data):
         try:
             float(abs(row["SPEED"] - prev_row["SPEED"]) / time_diff)
             formatted_data.append({
-                "FUEL_CONSUMED" : abs(prev_row["FUEL_LEVEL"] - row["FUEL_LEVEL"]),
+                "FUEL_CONSUMED" : prev_row["FUEL_LEVEL"],
                 "DISTANCE" : float(((row["SPEED"] + prev_row["SPEED"]) / 2) * time_diff),
                 "ACCELERATION" : float(abs(row["SPEED"] - prev_row["SPEED"]) / time_diff),
                 "ENGINE_LOAD" : row["ENGINE_LOAD"],
@@ -51,7 +52,22 @@ def format_data(data):
             })
         except:
             pass
-    return formatted_data
+    for i in range(0, len(formatted_data), 10):
+        fuel, acceleration, distance, engine_load, engine_rpm = 0, 0, 0, 0, 0
+        for j in range(i, min(i + 11, len(formatted_data))):
+            fuel += formatted_data[j]["FUEL_CONSUMED"]
+            distance += formatted_data[j]["DISTANCE"]
+            acceleration += formatted_data[j]["ACCELERATION"]
+            engine_load += formatted_data[j]["ENGINE_LOAD"]
+            engine_rpm += formatted_data[j]["ENGINE_RPM"]
+        temp.append({
+            "FUEL_CONSUMED" : fuel,
+            "DISTANCE" : distance,
+            "ACCELERATION" : acceleration / 5,
+            "ENGINE_LOAD" : engine_load / 5,
+            "ENGINE_RPM" : engine_rpm / 5
+        })
+    return temp
 
 
 
