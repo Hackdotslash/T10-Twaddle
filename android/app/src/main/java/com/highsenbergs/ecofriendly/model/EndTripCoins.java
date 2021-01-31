@@ -7,7 +7,7 @@ public class EndTripCoins {
     private String message;
     @SerializedName( "data" )
     private String data;
-    @SerializedName( "" )
+    @SerializedName( "avg_carbon_footprint" )
     private float avg_carbon_footprint;
     @SerializedName( "total_coins" )
     private float total_coins;

@@ -1,46 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.HomeFragment.HomeFragment">
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		tools:context=".ui.fragments.HomeFragment.HomeFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Home"
-        android:background="@color/colorTitle"
-        android:padding="10dp"
-        android:paddingStart="15dp"
-        android:textColor="@android:color/white"
-        android:textSize="23sp"
-        android:gravity="start|center_vertical"
-        />
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/home_toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="56dp"-->
-<!--        android:alpha="0.87"-->
-<!--        app:title="Home" />-->
+	<com.google.android.material.appbar.AppBarLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/appbar_bg">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/home_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/tablayout_grayline"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorTitle"
-        app:tabTextAppearance="@style/MyTabLayoutTextAppearance" />
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="60dp"
+				android:fontFamily="@font/questrial"
+				android:gravity="start|center_vertical"
+				android:padding="10dp"
+				android:paddingStart="15dp"
+				android:text="Home"
+				android:textColor="#eee"
+				android:textSize="@dimen/appbar_title_textsize" />
+	</com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/home_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/tabbar_vertical_divider"
+			android:orientation="vertical">
+
+		<com.google.android.material.tabs.TabLayout
+				android:id="@+id/home_tabs"
+				android:layout_width="match_parent"
+				android:layout_height="?android:attr/actionBarSize"
+				android:layout_marginStart="12dp"
+				android:layout_marginEnd="12dp"
+				app:tabGravity="center"
+				app:tabIndicatorHeight="0dp"
+				app:tabPadding="16dp"
+				app:tabSelectedTextColor="@color/colorPrimary"
+				app:tabTextAppearance="@style/MyTabLayoutTextAppearance" />
+
+	</LinearLayout>
+
+	<androidx.viewpager.widget.ViewPager
+			android:id="@+id/home_viewpager"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" />
 
 
 </LinearLayout>

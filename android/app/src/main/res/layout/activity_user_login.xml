@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,28 +25,29 @@
         tools:layout_editor_absoluteX="0dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Welcome to ECO2Drive"
-            android:textColor="#393939"
+                android:textAlignment="center"
+            android:layout_margin="15dp"
+            android:fontFamily="@font/questrial"
+            android:text="@string/splash_title"
+            android:textColor="#DE000000"
             android:textSize="26sp"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="16dp"
-            android:fontFamily="@font/poppins"
             android:textAlignment="center"
             android:letterSpacing="0.01"
+                android:lineHeight="22dp"
             android:lineSpacingMultiplier="1"
-            android:textColor="#ff888786"
+            android:textColor="#666"
             android:textScaleX="1"
-            android:text="Keep track of pollution done by you while driving vehicles.\nShare your trip with friends to decrease the pollution"
+            android:text="@string/splash_desc"
             android:textSize="18sp"
             android:textStyle="normal" />
 
@@ -58,8 +61,8 @@
         android:layout_height="67dp"
         android:layout_gravity="center|bottom"
         android:gravity="center"
-        android:text="Login"
-        android:fontFamily="@font/montserrat_regular"
+        android:text="@string/btn_login"
+        android:fontFamily="@font/questrial"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textFontWeight="600"

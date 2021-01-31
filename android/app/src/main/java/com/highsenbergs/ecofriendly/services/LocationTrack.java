@@ -1,5 +1,7 @@
 package com.highsenbergs.ecofriendly.services;
 
+import static com.highsenbergs.ecofriendly.ui.fragments.HomeFragment.SoloDrive.ongoingJourneyCoordinatesArrayList;
+
 import android.Manifest;
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
@@ -22,6 +24,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.highsenbergs.ecofriendly.model.OngoingJourneyCoordinates;
 
 import java.util.concurrent.TimeUnit;
 
@@ -39,9 +42,6 @@ public class LocationTrack extends Service {
     public LocationTrack() {
     }
 
-//    public LocationTrack(LocationListener locationListener) {
-//        this.locationListener = locationListener;
-//    }
 
     @Override
     public void onCreate() {
@@ -150,6 +150,7 @@ public class LocationTrack extends Service {
                     latitude = location1.getLatitude();
                     longitude = location1.getLongitude();
                     Log.i( TAG, "onLocationResult: latitude inside for"+ latitude );
+                    ongoingJourneyCoordinatesArrayList.add( new OngoingJourneyCoordinates( System.currentTimeMillis(), location1.getLatitude(), location1.getLongitude() ) );
                 }
                 Log.i( TAG, "locationResult stop" );
             }

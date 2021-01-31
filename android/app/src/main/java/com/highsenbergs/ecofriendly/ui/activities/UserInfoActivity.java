@@ -104,22 +104,22 @@ public class UserInfoActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void createUserDetails(){
-        Log.i( this.getClass().getSimpleName(), "getFollowers: " );
-        RetrofitApiInterface apiInterface = retrofit.create( RetrofitApiInterface.class);
-        Call<UserDetails> call = apiInterface.createUser(userDetails);
-        call.enqueue( new Callback<UserDetails>() {
-            @Override
-            public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
-                if(response.isSuccessful()){
-                    Log.i( this.getClass().getSimpleName(), "onResponse: " + response );
+        private void createUserDetails(){
+            Log.i( this.getClass().getSimpleName(), "getFollowers: " );
+            RetrofitApiInterface apiInterface = retrofit.create( RetrofitApiInterface.class);
+            Call<UserDetails> call = apiInterface.createUser(userDetails);
+            call.enqueue( new Callback<UserDetails>() {
+                @Override
+                public void onResponse(Call<UserDetails> call, Response<UserDetails> response) {
+                    if(response.isSuccessful()){
+                        Log.i( this.getClass().getSimpleName(), "onResponse: " + response );
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<UserDetails> call, Throwable t) {
-                Log.i( TAG, "onFailure: " + t );
-            }
-        } );
-    }
+                @Override
+                public void onFailure(Call<UserDetails> call, Throwable t) {
+                    Log.i( TAG, "onFailure: " + t );
+                }
+            } );
+        }
 }

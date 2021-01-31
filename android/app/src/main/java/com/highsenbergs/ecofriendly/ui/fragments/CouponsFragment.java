@@ -32,20 +32,24 @@ public class CouponsFragment extends Fragment {
         View coupon1 = getLayoutInflater().inflate( R.layout.card_coupon , layoutCoupons , false );
         TextView tv_company_name = coupon1.findViewById( R.id.company_name );
         tv_company_name.setText( "Motorox" );
-        ImageView tv_company_icon = coupon1.findViewById( R.id.user_icon );
-        tv_company_icon.setVisibility( View.INVISIBLE );
         TextView tv_company_title = coupon1.findViewById( R.id.offer_title );
         tv_company_title.setText( "Get 20% off on your next service" );
         layoutCoupons.addView(coupon1);
 
-//        View coupon2 = getLayoutInflater().inflate( R.layout.card_coupon , layoutCoupons , false );
-//        TextView tv_company_name1 = coupon2.findViewById( R.id.company_name );
-//        tv_company_name1.setText( "Amazon" );
-//        ImageView tv_company_icon1 = coupon2.findViewById( R.id.user_icon );
-//        tv_company_icon1.setImageResource( R.drawable.amazon );
-//        TextView tv_company_title1 = coupon2.findViewById( R.id.offer_title );
-//        tv_company_title1.setText( "Get 50% off on all electronics products" );
-//        layoutCoupons.addView(coupon2);
+        View coupon2 = getLayoutInflater().inflate( R.layout.card_coupon , layoutCoupons , false );
+        ((TextView)coupon2.findViewById( R.id.company_name )).setText( "Amazon" );
+        ((TextView)coupon2.findViewById( R.id.offer_title )).setText( "Get upto 50% off on vehicle accessories" );
+        layoutCoupons.addView(coupon2);
+
+        View coupon3 = getLayoutInflater().inflate( R.layout.card_coupon , layoutCoupons , false );
+        ((TextView)coupon3.findViewById( R.id.company_name )).setText( "Fastag" );
+        ((TextView)coupon3.findViewById( R.id.offer_title )).setText( "Get 30% off on first fastag buy" );
+        layoutCoupons.addView(coupon3);
+
+        View coupon4 = getLayoutInflater().inflate( R.layout.card_coupon , layoutCoupons , false );
+        ((TextView)coupon4.findViewById( R.id.company_name )).setText( "Honda" );
+        ((TextView)coupon4.findViewById( R.id.offer_title )).setText( "Get first 2-wheeler servicing free" );
+        layoutCoupons.addView(coupon4);
 
     }
 }

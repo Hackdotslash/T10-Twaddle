@@ -4,19 +4,24 @@
     android:layout_height="match_parent"
     >
 
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        android:background="@drawable/appbar_bg">
 
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Store"
+                android:padding="10dp"
+                android:paddingStart="15dp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/appbar_title_textsize"
+                android:fontFamily="@font/questrial"
+                android:gravity="start|center_vertical"
+                />
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Redeem Coupons"
-        android:background="@color/colorTitle"
-        android:padding="10dp"
-        android:paddingStart="15dp"
-        android:textColor="@android:color/white"
-        android:textSize="23sp"
-        android:gravity="start|center_vertical"
-        />
 <!--    <TextView-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->

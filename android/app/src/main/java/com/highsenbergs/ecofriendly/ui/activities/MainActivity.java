@@ -19,6 +19,7 @@ import com.highsenbergs.ecofriendly.R;
 import com.highsenbergs.ecofriendly.ui.App;
 import com.highsenbergs.ecofriendly.ui.fragments.CouponsFragment;
 import com.highsenbergs.ecofriendly.ui.fragments.HomeFragment.HomeFragment;
+import com.highsenbergs.ecofriendly.ui.fragments.SocialFragment.FriendsLeaderboardFragment;
 import com.highsenbergs.ecofriendly.ui.fragments.SocialFragment.SocialFragment;
 
 import javax.inject.Inject;
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                             openFragment(new HomeFragment());
                             return true;
                         case R.id.navigation_social:
-                            openFragment(new SocialFragment());
+                            openFragment(new FriendsLeaderboardFragment());
                             return true;
                         case R.id.navigation_buy:
                             openFragment(new CouponsFragment());
@@ -80,20 +81,18 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission( getApplicationContext(), ACCESS_FINE_LOCATION );
-        int result1 = ContextCompat.checkSelfPermission( getApplicationContext(), READ_CONTACTS );
-        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermission(){
-        ActivityCompat.requestPermissions( this, new String[]{ACCESS_FINE_LOCATION, READ_CONTACTS}, PERMISSION_REQUEST_CODE );
+        ActivityCompat.requestPermissions( this, new String[]{ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE );
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-            boolean contactAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-            if (!locationAccepted && contactAccepted) {
+            if (!locationAccepted) {
                 Toast.makeText( this, " Please grant permissions", Toast.LENGTH_LONG ).show();
                 requestPermission();
             }

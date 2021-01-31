@@ -49,6 +49,7 @@ public class SoloDrive extends Fragment implements BluetoothReceiver.BluetoothRe
     @Inject
     Retrofit retrofit;
 
+    public static ArrayList<OngoingJourneyCoordinates> ongoingJourneyCoordinatesArrayList = new ArrayList<>();
     private static final String TAG = "SoloDrive";
     private View view;
     private boolean tripStatus, tripStatus1 = false, isBluetoothConnected = false, isLocationCorrect = false;
@@ -123,14 +124,10 @@ public class SoloDrive extends Fragment implements BluetoothReceiver.BluetoothRe
                     btn_start_trip.setText( "End" );
                 } else {
                     sendOngoingJourneyCoordinates();
-                    try {
-                        Thread.sleep( 1000 );
-                    } catch (InterruptedException e) {
-                    }
-                    sendEndLocationAPI();
-                    btn_start_trip.setText( "Start" );
-                    tv_trip_details.setVisibility( View.VISIBLE );
-                    tv_trip_details.setText( "2.312$ coins" );
+//                    try {
+//                        Thread.sleep( 1000 );
+//                    } catch (InterruptedException e) {
+//                    }
                 }
                 tripStatus1 = tripStatus;
                 tripStatus = !tripStatus;
@@ -231,7 +228,7 @@ public class SoloDrive extends Fragment implements BluetoothReceiver.BluetoothRe
 
     private void sendEndLocationAPI() {
         SelfDriveStart selfDriveStartAPI = new SelfDriveStart( firebaseAuth.getCurrentUser().getUid(),
-                firebaseAuth.getCurrentUser().getEmail(), " sony", "89:90:89", 82.22, 25.22 );
+                firebaseAuth.getCurrentUser().getEmail(), connectedBluetoothDevice.getName(), connectedBluetoothDevice.getAddress(), locationTrack.getLatitude(), locationTrack.getLongitude() );
         RetrofitApiInterface apiInterface = retrofit.create( RetrofitApiInterface.class );
         Call<SelfDriveStart> call = apiInterface.endSelfDrive( selfDriveStartAPI );
         call.enqueue( new Callback<SelfDriveStart>() {
@@ -253,11 +250,6 @@ public class SoloDrive extends Fragment implements BluetoothReceiver.BluetoothRe
 
     private void sendOngoingJourneyCoordinates() {
 
-        ArrayList<OngoingJourneyCoordinates> ongoingJourneyCoordinatesArrayList = new ArrayList<>();
-        ongoingJourneyCoordinatesArrayList.add( new OngoingJourneyCoordinates( 123123123, 23.234324, 23.32423 ) );
-        ongoingJourneyCoordinatesArrayList.add( new OngoingJourneyCoordinates( 123123143, 23.234324, 23.32423 ) );
-        ongoingJourneyCoordinatesArrayList.add( new OngoingJourneyCoordinates( 123123153, 23.234324, 23.32423 ) );
-
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         String JSONObject = gson.toJsonTree( ongoingJourneyCoordinatesArrayList ).toString();
@@ -270,11 +262,18 @@ public class SoloDrive extends Fragment implements BluetoothReceiver.BluetoothRe
         call.enqueue( new Callback<EndTripCoins>() {
             @Override
             public void onResponse(Call<EndTripCoins> call, Response<EndTripCoins> response) {
-                tv_trip_details.setText( "CO2 : " + response.body().getAvg_carbon_footprint() + " Kg/min");
-                tv_trip_coins.setText( "Coins : " + response.body().getTotal_coins() );
-                tv_trip_coins.setVisibility( View.VISIBLE );
+                ongoingJourneyCoordinatesArrayList.clear();
+                sendEndLocationAPI();
+                btn_start_trip.setText( "Start" );
                 tv_trip_details.setVisibility( View.VISIBLE );
-                icon_coins.setVisibility( View.VISIBLE );
+                tv_trip_details.setText( "2.312$ coins" );
+//
+//                Log.i(TAG, "onResponse: " + response.body().toString());
+//                tv_trip_details.setText( "CO2 : " + response.body().getAvg_carbon_footprint() + " Kg/min");
+//                tv_trip_coins.setText( "Coins : " + response.body().getTotal_coins() );
+//                tv_trip_coins.setVisibility( View.VISIBLE );
+//                tv_trip_details.setVisibility( View.VISIBLE );
+//                icon_coins.setVisibility( View.VISIBLE );
             }
 
             @Override

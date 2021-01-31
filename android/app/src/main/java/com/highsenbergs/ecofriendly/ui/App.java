@@ -11,6 +11,8 @@ import com.highsenbergs.ecofriendly.dagger.DaggerDataComponent;
 import com.highsenbergs.ecofriendly.dagger.DataComponent;
 import com.highsenbergs.ecofriendly.dagger.DataModule;
 import com.highsenbergs.ecofriendly.receivers.BluetoothReceiver;
+import com.vanniktech.emoji.EmojiManager;
+import com.vanniktech.emoji.google.GoogleEmojiProvider;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -25,6 +27,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         app = this;
+        EmojiManager.install(new GoogleEmojiProvider());
         dataComponent = DaggerDataComponent.builder()
                 .dataModule(new DataModule(this))
                 .build();

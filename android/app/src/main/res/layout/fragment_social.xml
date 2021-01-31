@@ -1,50 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.SocialFragment.SocialFragment">
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		tools:context=".ui.fragments.SocialFragment.SocialFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Social"
-        android:background="@color/colorTitle"
-        android:padding="10dp"
-        android:paddingStart="15dp"
-        android:textColor="@android:color/white"
-        android:textSize="23sp"
-        android:gravity="start|center_vertical"
-        />
+	<com.google.android.material.appbar.AppBarLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/appbar_bg">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/store_toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:alpha="0.87"-->
-<!--        android:layout_height="56dp"-->
-<!--        app:title="Social">-->
-<!--    </androidx.appcompat.widget.Toolbar>-->
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="60dp"
+				android:fontFamily="@font/questrial"
+				android:gravity="start|center_vertical"
+				android:padding="10dp"
+				android:paddingStart="15dp"
+				android:text="Social"
+				android:textColor="@android:color/white"
+				android:textSize="23sp" />
+	</com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/social_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/tablayout_grayline"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorTitle"
-        app:tabTextAppearance="@style/MyTabLayoutTextAppearance" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/social_viewpager"
-        />
+	<!--    <androidx.appcompat.widget.Toolbar-->
+	<!--        android:id="@+id/store_toolbar"-->
+	<!--        android:layout_width="match_parent"-->
+	<!--        android:alpha="0.87"-->
+	<!--        android:layout_height="56dp"-->
+	<!--        app:title="Social">-->
+	<!--    </androidx.appcompat.widget.Toolbar>-->
 
+	<com.google.android.material.tabs.TabLayout
+			android:id="@+id/social_tabs"
+			android:layout_width="match_parent"
+			android:layout_height="?android:attr/actionBarSize"
+			android:layout_marginStart="12dp"
+			android:layout_marginEnd="12dp"
+			android:background="@drawable/tablayout_grayline"
+			app:tabGravity="fill"
+			app:tabMode="fixed"
+			app:tabSelectedTextColor="@color/colorTitle"
+			app:tabTextAppearance="@style/MyTabLayoutTextAppearance" />
+
+	<androidx.viewpager.widget.ViewPager
+			android:id="@+id/social_viewpager"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" />
 
 
 </LinearLayout>

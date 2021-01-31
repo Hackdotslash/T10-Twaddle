@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Friends' Score"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:textStyle="bold"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dynamic_friends"
-        android:orientation="vertical"
-        />
+	<com.google.android.material.appbar.AppBarLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/appbar_bg">
+
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="60dp"
+				android:fontFamily="@font/questrial"
+				android:gravity="start|center_vertical"
+				android:padding="10dp"
+				android:paddingStart="15dp"
+				android:text="Leaderboard"
+				android:textColor="@android:color/white"
+				android:textSize="@dimen/appbar_title_textsize"  />
+	</com.google.android.material.appbar.AppBarLayout>
+
+<!--	<TextView-->
+<!--			android:layout_width="wrap_content"-->
+<!--			android:layout_height="wrap_content"-->
+<!--			android:layout_marginStart="16dp"-->
+<!--			android:layout_marginTop="8dp"-->
+<!--			android:text="Friends' Score"-->
+<!--			android:textStyle="bold" />-->
+
+	<LinearLayout
+			android:id="@+id/dynamic_friends"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical" />
 </LinearLayout>

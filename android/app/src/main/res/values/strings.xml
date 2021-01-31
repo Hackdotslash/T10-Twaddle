@@ -2,9 +2,12 @@
     <string name="app_name">ECO2Drive</string>
     <string name="title_activity_bottom_navigation">BottomNavigation</string>
     <string name="title_home">Home</string>
-    <string name="title_buy">Buy</string>
-    <string name="title_social">Social</string>
+    <string name="title_buy">Store</string>
+    <string name="title_social">Leaderboard</string>
     <string name="server_client_id_for_firebase_auth">60900845011-c0nkgjbg0akql4sbi50pfih1hnhu88tj.apps.googleusercontent.com</string>
+	<string name="splash_desc">where reward meets responsibility.!</string>
+    <string name="splash_title">Welcome to ECO2Drive</string>
+    <string name="btn_login">Login</string>
     <string-array name="array_fuel">
         <item>Petrol</item>
         <item>Diesel</item>
